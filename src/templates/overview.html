@@ -1,0 +1,149 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Overview</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            background-color: #1a237e;
+            margin-top: 50px;
+            padding: 50px;
+            margin: 250px;
+            border-radius: 50px;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        p {
+            text-align: left;
+        }
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-container select {
+            width: 60%;
+            height: 2em;
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            color: #1a237e;
+            background-color: white;
+            cursor: pointer;
+        }
+        .input-container input[type="submit"] {
+            font-weight: bold;
+            margin-left: 10px;
+            padding: 8px 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: black;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ffffff;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: darkgray;
+            color: white;
+        }
+        tr {
+            background-color: #f0f0f0;
+            color: black;
+        }
+        tr:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Overview</h1>
+        
+        <!-- Basic Information about HCV -->
+        <h2>Backgrounds about Hepatitis C Virus (HCV)</h2>
+        <p>
+            <!-- Replace this paragraph with your actual HCV information -->
+            Hepatitis C is a liver disease caused by the hepatitis C virus (HCV).
+            The disease is transmitted through blood and can cause short-term or chronic liver damage.
+        </p>
+        
+        <!-- Dataset Overview -->
+        <h2>Dataset Overview</h2>
+        <p>Select the number of rows to display:</p>
+        <form action="/overview" method="GET">
+            <label for="rowSelection">Select rows:</label>
+            <select name="rowSelection" id="rowSelection">
+                <option value="5">Select</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <input type="submit" value="Show">
+        </form>
+        
+        <!-- Display dataset overview table -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>ALB</th>
+                    <th>ALP</th>
+                    <th>ALT</th>
+                    <th>AST</th>
+                    <th>BIL</th>
+                    <th>CHE</th>
+                    <th>CHOL</th>
+                    <th>CREA</th>
+                    <th>GGT</th>
+                    <th>PROT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ind in data.index %}
+                <tr>
+                    <td>{{ data['Category'][ind] }}</td>
+                    <td>{{ data['Age'][ind] }}</td>
+                    <td>{{ data['Sex'][ind] }}</td>
+                    <td>{{ data['ALB'][ind] }}</td>
+                    <td>{{ data['ALP'][ind] }}</td>
+                    <td>{{ data['ALT'][ind] }}</td>
+                    <td>{{ data['AST'][ind] }}</td>
+                    <td>{{ data['BIL'][ind] }}</td>
+                    <td>{{ data['CHE'][ind] }}</td>
+                    <td>{{ data['CHOL'][ind] }}</td>
+                    <td>{{ data['CREA'][ind] }}</td>
+                    <td>{{ data['GGT'][ind] }}</td>
+                    <td>{{ data['PROT'][ind] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

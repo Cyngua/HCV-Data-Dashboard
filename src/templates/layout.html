@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            background-color: #1a237e;
+            margin-top: 50px;
+            padding: 50px;
+            margin: 250px;
+            border-radius: 50px;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        p{
+            text-align: left;
+        }
+        .input-container {
+            margin-top: 20px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .input-container select {
+            width: 60%; 
+            height: 2em;
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            color: #1a237e; 
+            background-color: white; 
+            cursor: pointer;
+        }
+        .input-container input[type="submit"] {
+            font-weight: bold;
+            margin-left: 10px;
+            padding: 8px 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 5px;
+            background-color: #f0f0f0; 
+            color: black; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HCV Data Dashboard</h1>
+        <p>Welcome to the HCV Data Dashboard!
+            This dashboard provides an analysis of Hepatitis C Virus (HCV) infection data, 
+            including dataset overview, dataset description, machine learning results, and references.
+        </p>
+        <div class="input-container">
+            <form action="/info" method="GET">
+                <select name="usertext">
+                    <option value="">Choose a section...</option>
+                    <option value="overview">Overview</option>
+                    <option value="dataset-description">Dataset Description</option>
+                    <option value="data-analysis">Data Analysis</option>
+                    <option value="machine-learning-models">Machine Learning Models</option>
+                    <option value="results-and-findings">Results and Findings</option>
+                    <option value="references">References</option>
+                </select>
+                <input type="submit" value="Go">
+            </form>
+        </div> 
+    </div>    
+</body>
+</html>
