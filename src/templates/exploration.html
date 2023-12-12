@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Exploration</title>
-    <!-- Add Plotly CDN -->
+    <title>Exploration</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="distributions.js"></script>
     <style>
         body {
             text-align: left;
@@ -31,11 +29,10 @@
             color: white;
         }
         .content {
-            margin-left: 270px; /* Adjust this value based on the sidebar width */
+            margin-left: 270px; 
             padding: 20px;
         }
 
-        /* Styling for select inputs */
         select {
             width: 100%;
             padding: 10px;
@@ -44,13 +41,13 @@
             border: 1px solid #ccc;
         }
 
-        /* Styling for plot container */
         #plot {
-            width: calc(100% - 300px); /* Adjust based on the sidebar and padding */
+            width: calc(100% - 300px);
             height: 80vh;
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
+            color: black
         }
         a {
             color: #ff5252;
@@ -61,7 +58,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="plotGraph()">
     <div class="sidebar">
         <h2>Data Exploration</h2>
 
@@ -71,6 +68,13 @@
             <option value="ALB">ALB</option>
             <option value="ALP">ALP</option>
             <option value="ALT">ALT</option>
+            <option value="AST">AST</option>
+            <option value="BIL">BIL</option>
+            <option value="CHE">CHE</option>
+            <option value="CHOL">CHOL</option>
+            <option value="CREA">CREA</option>
+            <option value="GGT">GGT</option>
+            <option value="PROT">PROT</option>
         </select>
 
         <label for="otherName">Select Column 2:</label>
@@ -79,6 +83,13 @@
             <option value="ALB">ALB</option>
             <option value="ALP">ALP</option>
             <option value="ALT">ALT</option>
+            <option value="AST">AST</option>
+            <option value="BIL">BIL</option>
+            <option value="CHE">CHE</option>
+            <option value="CHOL">CHOL</option>
+            <option value="CREA">CREA</option>
+            <option value="GGT">GGT</option>
+            <option value="PROT">PROT</option>
         </select>
 
         <button onclick="plotGraph()">Plot</button>
@@ -92,8 +103,56 @@
     </div>
 
     <script>
-      // Inject hcv_data JSON into JavaScript
-      let data = {{hcv_data_json}}
+      // Inject hcv_data JSON file
+        var hcvData = {{ hcv_data_json | safe }};
+        function plotGraph() {
+            const selectedColumnName = document.getElementById('columnName').value;
+            const selectedOtherName = document.getElementById('otherName').value;
+            const xData = hcvData.map(row => row[selectedColumnName]);
+            const yData = hcvData.map(row => row[selectedOtherName]);
+
+            if (selectedColumnName === selectedOtherName) {
+                createHistogramPlot(xData);
+            } else {
+                createScatterPlot(xData, yData, selectedColumnName, selectedOtherName);
+            }
+        }
+
+        function createHistogramPlot(data) {
+            const trace = {
+                x: data,
+                type: 'histogram'
+            };
+        
+            const layout = {
+                title: 'Histogram',
+                xaxis: { title: 'Value' },
+                yaxis: { title: 'Frequency' }
+                // Additional layout configurations
+            };
+        
+            const plotData = [trace];
+            Plotly.newPlot('plot', plotData, layout);
+        }
+
+        function createScatterPlot(xData, yData, selectedColumnName, selectedOtherName) {
+            const trace = {
+                x: xData,
+                y: yData,
+                mode: 'markers',
+                type: 'scatter',
+                marker: { size: 8 }
+            };
+
+            const layout = {
+                title: 'Scatter Plot',
+                xaxis: { title: selectedColumnName },
+                yaxis: { title: selectedOtherName }
+            };
+
+            const plotData = [trace];
+            Plotly.newPlot('plot', plotData, layout);
+        }
     </script>
 </body>
 </html>

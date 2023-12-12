@@ -33,7 +33,7 @@ def overview():
 @app.route('/data-exploration', methods=['GET', 'POST'])
 def explore():
 
-    return render_template('exploration.html', hcv_data_json=hcv_data_json)
+    return render_template('exploration.html', hcv_data_json = hcv_data_json)
 
 if __name__ == "__main__":
     app.run(debug=True)
