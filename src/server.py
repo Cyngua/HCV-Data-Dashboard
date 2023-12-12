@@ -6,6 +6,7 @@ import plotly.express as px
 # python3 server.py
 df = pd.read_csv('../data/processed_hcvdat.csv')
 hcv_data = pd.read_csv("../data/hcvdat0.csv")
+hcv_data_json = hcv_data.to_json(orient='records')
 
 app = Flask(__name__)
 
@@ -31,8 +32,8 @@ def overview():
 # data exploration
 @app.route('/data-exploration', methods=['GET', 'POST'])
 def explore():
-    
-    return render_template('exploration.html')
+
+    return render_template('exploration.html', hcv_data_json=hcv_data_json)
 
 if __name__ == "__main__":
     app.run(debug=True)

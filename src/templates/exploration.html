@@ -4,7 +4,7 @@
     <title>Data Exploration</title>
     <!-- Add Plotly CDN -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
+    <script src="distributions.js"></script>
     <style>
         body {
             text-align: left;
@@ -64,20 +64,24 @@
 <body>
     <div class="sidebar">
         <h2>Data Exploration</h2>
-        <label for="graphType">Select Graph Type:</label>
-        <select id="graphType">
-            <option value="histogram">Histogram</option>
-            <option value="barplot">Barplot</option>
-            <option value="boxplot">Boxplot</option>
-        </select>
-        
-        <label for="columnName">Select Column Name:</label>
+
+        <label for="columnName">Select Column 1:</label>
         <select id="columnName">
-            <option value="Category">Category</option>
             <option value="Age">Age</option>
-            <option value="Sex">Sex</option>
             <option value="ALB">ALB</option>
+            <option value="ALP">ALP</option>
+            <option value="ALT">ALT</option>
         </select>
+
+        <label for="otherName">Select Column 2:</label>
+        <select id="otherName">
+            <option value="Age">Age</option>
+            <option value="ALB">ALB</option>
+            <option value="ALP">ALP</option>
+            <option value="ALT">ALT</option>
+        </select>
+
+        <button onclick="plotGraph()">Plot</button>
         <p>
             <a href="{{ url_for('index') }}">Back to Homepage</a>
         </p>
@@ -88,9 +92,8 @@
     </div>
 
     <script>
-        // JavaScript code to handle Plotly plot based on user selection
-        // This section will involve using Plotly.js to generate plots based on selected options
-        // Example code will go here
+      // Inject hcv_data JSON into JavaScript
+      let data = {{hcv_data_json}}
     </script>
 </body>
 </html>
