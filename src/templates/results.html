@@ -99,7 +99,6 @@
 
     <script>
         function loadInitialParameters() {
-            // Call this function on page load to initialize parameter selection
             updateParameterSelection();
         }
     
@@ -107,18 +106,16 @@
             const selectedModel = document.getElementById('modelSelect').value;
             const parameterInputs = document.getElementById('parameterInputs');
     
-            // Clear previous inputs
             parameterInputs.innerHTML = '';
     
-            // Add input fields based on the selected model's parameters
             if (selectedModel === 'DT') {
-                addInputField(parameterInputs, 'Age');
-                addInputField(parameterInputs, 'Income');
-                addInputField(parameterInputs, 'Education');
+                addInputField(parameterInputs, 'n_estimators');
+                addInputField(parameterInputs, 'max_depth');
+                addInputField(parameterInputs, 'min_samples_split');
             } else if (selectedModel === 'XGB') {
-                addInputField(parameterInputs, 'Age');
-                addInputField(parameterInputs, 'Gender');
-                addInputField(parameterInputs, 'Location');
+                addInputField(parameterInputs, 'n_estimators');
+                addInputField(parameterInputs, 'max_depth');
+                addInputField(parameterInputs, 'learning_rate');
             }
             // Add more conditions for other models if needed
         }
@@ -130,8 +127,8 @@
             container.appendChild(inputLabel);
     
             const inputField = document.createElement('input');
-            inputField.type = 'text'; // You can change the input type as needed
-            inputField.name = parameter.toLowerCase(); // Use the parameter as the input field's name
+            inputField.type = 'text'; 
+            inputField.name = parameter.toLowerCase();
             container.appendChild(inputField);
     
             const lineBreak = document.createElement('br');
