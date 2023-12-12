@@ -28,6 +28,8 @@ def overview():
     data_for_overview = hcv_data.iloc[:num_rows, :]
     return render_template('overview.html', data = data_for_overview)
 
+# data exploration
+@app.route('/overview', methods=['GET', 'POST'])
 
 if __name__ == "__main__":
     app.run(debug=True)

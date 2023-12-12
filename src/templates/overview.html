@@ -13,9 +13,9 @@
         }
         .container {
             background-color: #1a237e;
-            margin-top: 50px;
+            margin-top: 20px;
             padding: 50px;
-            margin: 250px;
+            margin: 200px;
             border-radius: 50px;
             color: white;
         }
@@ -26,6 +26,7 @@
         }
         p {
             text-align: left;
+            color: white;
         }
         .input-container {
             margin-top: 20px;
@@ -76,6 +77,13 @@
         tr:hover {
             background-color: gray;
         }
+        a {
+            color: #ff5252; /* Set the color to a noticeable one (red in this example) */
+            text-decoration: none; /* Remove underlines from links */
+        }
+        a:hover {
+            color: #ff8a80; 
+        }
     </style>
 </head>
 <body>
@@ -83,15 +91,21 @@
         <h1>Overview</h1>
         
         <!-- Basic Information about HCV -->
-        <h2>Backgrounds about Hepatitis C Virus (HCV)</h2>
         <p>
             <!-- Replace this paragraph with your actual HCV information -->
             Hepatitis C is a liver disease caused by the hepatitis C virus (HCV).
             The disease is transmitted through blood and can cause short-term or chronic liver damage.
+            Early diagnosis allows for timely intervention, preventing further transmission and enabling access to effective treatments, reducing the risk of chronic liver disease.
+        </p>
+         
+        <p>
+            Credits to the dataset in this project: <br>
+            <a href="https://www.semanticscholar.org/paper/26d42f15a80f3629f5de44262891dd25979e4be3" target="_blank">Original Paper</a> <br>
+            <a href="https://archive.ics.uci.edu/dataset/571/hcv+data" target="_blank">Original dataset in UCI Machine Learning Repository</a> <br>
+            <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank">CC BY 4.0 license</a>
         </p>
         
         <!-- Dataset Overview -->
-        <h2>Dataset Overview</h2>
         <p>Select the number of rows to display:</p>
         <form action="/overview" method="GET">
             <label for="rowSelection">Select rows:</label>
@@ -144,6 +158,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        <p>
+            <a href="{{ url_for('index') }}">Back to Homepage</a>
+        </p>
     </div>
 </body>
 </html>
