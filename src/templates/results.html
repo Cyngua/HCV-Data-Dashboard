@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            text-align: left;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            height: 100vh;
+            color: white;
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1a237e;
+            padding: 20px;
+            color: white;
+        }
+        .content {
+            margin-left: 270px; 
+            padding: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #plot {
+            width: calc(100% - 300px);
+            height: 80vh;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            color: black
+        }
+        a {
+            color: #ff5252;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #ff8a80; 
+        }
+        #parameterInputs {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body onload="loadInitialParameters()">
+    <div class="sidebar">
+        <h2>Prediction Results</h2>
+
+        <label for="modelSelect">Select Model:</label>
+        <select id="modelSelect" onchange="updateParameterSelection()">
+            <option value="DT">Random Forest</option>
+            <option value="XGB">XGBoost</option>
+        </select>
+    
+        <div id="parameterInputs">
+            <!-- Input fields will be dynamically added based on the selected model -->
+        </div>
+
+        <button onclick="plotGraph()">Plot</button>
+        <p>
+            <a href="{{ url_for('index') }}">Back to Homepage</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div id="plot"></div>
+    </div>
+
+    <script>
+        function loadInitialParameters() {
+            // Call this function on page load to initialize parameter selection
+            updateParameterSelection();
+        }
+    
+        function updateParameterSelection() {
+            const selectedModel = document.getElementById('modelSelect').value;
+            const parameterInputs = document.getElementById('parameterInputs');
+    
+            // Clear previous inputs
+            parameterInputs.innerHTML = '';
+    
+            // Add input fields based on the selected model's parameters
+            if (selectedModel === 'DT') {
+                addInputField(parameterInputs, 'Age');
+                addInputField(parameterInputs, 'Income');
+                addInputField(parameterInputs, 'Education');
+            } else if (selectedModel === 'XGB') {
+                addInputField(parameterInputs, 'Age');
+                addInputField(parameterInputs, 'Gender');
+                addInputField(parameterInputs, 'Location');
+            }
+            // Add more conditions for other models if needed
+        }
+    
+        function addInputField(container, parameter) {
+            // Function to add input fields for parameters
+            const inputLabel = document.createElement('label');
+            inputLabel.textContent = `${parameter}: `;
+            container.appendChild(inputLabel);
+    
+            const inputField = document.createElement('input');
+            inputField.type = 'text'; // You can change the input type as needed
+            inputField.name = parameter.toLowerCase(); // Use the parameter as the input field's name
+            container.appendChild(inputField);
+    
+            const lineBreak = document.createElement('br');
+            container.appendChild(lineBreak);
+        }
+    
+        // Rest of your JavaScript functions...
+    
+    </script>
+</body>
+</html>
