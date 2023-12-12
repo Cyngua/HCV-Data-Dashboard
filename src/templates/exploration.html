@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Exploration</title>
+    <!-- Add Plotly CDN -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            text-align: left;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            height: 100vh;
+            color: white;
+        }
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #1a237e;
+            padding: 20px;
+            color: white;
+        }
+        .content {
+            margin-left: 270px; /* Adjust this value based on the sidebar width */
+            padding: 20px;
+        }
+
+        /* Styling for select inputs */
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Styling for plot container */
+        #plot {
+            width: calc(100% - 300px); /* Adjust based on the sidebar and padding */
+            height: 80vh;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        a {
+            color: #ff5252;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #ff8a80; 
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Data Exploration</h2>
+        <label for="graphType">Select Graph Type:</label>
+        <select id="graphType">
+            <option value="histogram">Histogram</option>
+            <option value="barplot">Barplot</option>
+            <option value="boxplot">Boxplot</option>
+        </select>
+        
+        <label for="columnName">Select Column Name:</label>
+        <select id="columnName">
+            <option value="Category">Category</option>
+            <option value="Age">Age</option>
+            <option value="Sex">Sex</option>
+            <option value="ALB">ALB</option>
+        </select>
+        <p>
+            <a href="{{ url_for('index') }}">Back to Homepage</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div id="plot"></div>
+    </div>
+
+    <script>
+        // JavaScript code to handle Plotly plot based on user selection
+        // This section will involve using Plotly.js to generate plots based on selected options
+        // Example code will go here
+    </script>
+</body>
+</html>

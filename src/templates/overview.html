@@ -78,8 +78,8 @@
             background-color: gray;
         }
         a {
-            color: #ff5252; /* Set the color to a noticeable one (red in this example) */
-            text-decoration: none; /* Remove underlines from links */
+            color: #ff5252;
+            text-decoration: none;
         }
         a:hover {
             color: #ff8a80; 
@@ -159,7 +159,8 @@
             </tbody>
         </table>
         <p>
-            <a href="{{ url_for('index') }}">Back to Homepage</a>
+            <a href="{{ url_for('index') }}">Back to Homepage</a> <br>
+            <a href="{{ url_for('explore') }}">Go to Data Exploration</a>
         </p>
     </div>
 </body>

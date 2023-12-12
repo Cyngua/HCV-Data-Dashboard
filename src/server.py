@@ -29,7 +29,10 @@ def overview():
     return render_template('overview.html', data = data_for_overview)
 
 # data exploration
-@app.route('/overview', methods=['GET', 'POST'])
+@app.route('/data-exploration', methods=['GET', 'POST'])
+def explore():
+    
+    return render_template('exploration.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
