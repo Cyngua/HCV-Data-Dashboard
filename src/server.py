@@ -1,7 +1,11 @@
-from flask import Flask, render_template, request, jsonify, url_for
+from flask import Flask, render_template, request, jsonify, url_for, send_file
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
+import os
+import matplotlib
+import time
+matplotlib.use('Agg')
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
@@ -23,7 +27,7 @@ def model_training(model, X_train, y_train, X_test, y_test):
 def normalize_columns(features):
     return (features - features.mean()) / features.std()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/Users/cynthia/Desktop/BIS634_CMHI/BIS634 Final')
 
 # homepage
 @app.route("/")
@@ -52,6 +56,7 @@ def run_model():
     data = request.json
     selected_model = data.get('model')
     parameters = data.get('parameters')
+    print(parameters)
 
     # model training
     y = df['Category']
@@ -69,26 +74,31 @@ def run_model():
         except ValueError:
             parameters_dict[key] = float(value)
             
-    # parameters_dict = json.loads(parameters)
 
+    model_name = 'NA'
     if selected_model == "XGB":
         model_xgb = xgb.XGBClassifier()
+        model_name = 'XGBoost'
         model_xgb.set_params(**parameters_dict)
         model_xgb, cm = model_training(model_xgb, X_train, y_train, X_test, y_test)
     elif selected_model == "DT":
         model_rf = RandomForestClassifier()
+        model_name = 'Random Forest'
         model_rf.set_params(**parameters_dict)
         model_rf, cm = model_training(model_rf, X_train, y_train, X_test, y_test)
     
     # plot out confusion matrix
     cmd = ConfusionMatrixDisplay(cm)
     cmd.plot()
-    plt.title('Confusion Matrix (Random Forest)')
+    plt.title(f'Confusion Matrix ({model_name})')
     plt.tight_layout()
-    plt.savefig('static/confusion_matrix_run.png')
+    filename = f"confusion_matrix_{int(time.time())}.png"  # Unique filename using a timestamp
+    plt.savefig(f"../figures/{filename}")
+    # plt.savefig('../figures/confusion_matrix_run.png')
+    # image_url = url_for('static', filename='figures/confusion_matrix_run.png')
+    image_url = url_for('static', filename=f'figures/{filename}')
     plt.close()
-    image_url = '/static/confusion_matrix.png'
-    return jsonify({'image_url': image_url})
+    return json.dumps({'image_url': image_url})
     # try:
     #     # convert parameter type
     #     for key, value in parameters.items():
@@ -126,11 +136,6 @@ def run_model():
 
 @app.route('/results')
 def results():
-    # json_file, code = run_model()
-    # if code == 200:
-    #     value = json.loads(json_file)
-    #     query = value.get('image_url')
-    #     return render_template('result.html', image_url=query)
     return render_template('results.html')
 
 

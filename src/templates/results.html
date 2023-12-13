@@ -84,18 +84,19 @@
         </select>
     
         <div id="parameterInputs">
-            <!-- Input fields will be dynamically added based on the selected model -->
         </div>
 
         <button onclick="runModelAndDisplay()">Run</button>
+        
         <p>
             <a href="{{ url_for('index') }}">Back to Homepage</a>
         </p>
     </div>
 
     <div class="content">
-        <div id="plot"></div>
+        <div id="plot"> </div>
     </div>
+
 
     <script>
         function loadInitialParameters() {
@@ -117,7 +118,6 @@
                 addInputField(parameterInputs, 'max_depth');
                 addInputField(parameterInputs, 'learning_rate');
             }
-            // Add more conditions for other models if needed
         }
     
         function addInputField(container, parameter) {
@@ -147,7 +147,7 @@
 
             // Send input data to Flask server with proper headers
             fetch('/run-model', {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -156,22 +156,13 @@
                     parameters: inputs
                 })
             })
-            .then(response => {
-                // Handle the response from the server (if needed)
-                // For example, display the plot returned by the server
-                return response.json();
-            })
+            .then(response => response.json()) 
             .then(data => {
-                // Process the data returned from the server (if needed)
-                // For example, update the plot in the 'plot' div
-                console.log(data); // Log the data returned by the server
-
-                // Check if the data contains the image_url
+                console.log(data);
                 if (data.image_url) {
                     // Create an image element
                     const img = document.createElement('img');
                     img.src = data.image_url; // Set the image source to the received URL
-
                     // Clear previous content and append the image to the 'plot' div
                     const plotDiv = document.getElementById('plot');
                     plotDiv.innerHTML = '';
@@ -181,11 +172,10 @@
             .catch(error => {
                 console.error('Error:', error);
             });
-            
         }
 
         function runModelAndDisplay() {
-            plotGraph(); // Call the function to send data to the server and get the image URL
+            plotGraph();
         }
     </script>
 </body>
