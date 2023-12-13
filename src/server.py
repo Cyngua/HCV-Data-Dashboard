@@ -15,14 +15,15 @@ from sklearn.ensemble import RandomForestClassifier
 
 # python3 server.py
 df = pd.read_csv('../data/processed_hcvdat.csv')
+df.drop(columns = ['Unnamed: 0'], inplace = True)
 hcv_data = pd.read_csv("../data/hcvdat0.csv")
 hcv_data_json = hcv_data.to_json(orient='records')
 
-def model_training(model, X_train, y_train, X_test, y_test):
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    cm = confusion_matrix(y_test, y_pred)
-    return model, cm
+# def model_training(model, X_train, y_train, X_test, y_test):
+#     model.fit(X_train, y_train)
+#     y_pred = model.predict(X_test)
+#     cm = confusion_matrix(y_test, y_pred)
+    # return model, cm
 
 def normalize_columns(features):
     return (features - features.mean()) / features.std()
@@ -80,12 +81,18 @@ def run_model():
         model_xgb = xgb.XGBClassifier()
         model_name = 'XGBoost'
         model_xgb.set_params(**parameters_dict)
-        model_xgb, cm = model_training(model_xgb, X_train, y_train, X_test, y_test)
+        model_xgb.fit(X_train, y_train)
+        y_pred = model_xgb.predict(X_test)
+        cm = confusion_matrix(y_test, y_pred)
+        # model_xgb, cm = model_training(model_xgb, X_train, y_train, X_test, y_test)
     elif selected_model == "DT":
         model_rf = RandomForestClassifier()
         model_name = 'Random Forest'
         model_rf.set_params(**parameters_dict)
-        model_rf, cm = model_training(model_rf, X_train, y_train, X_test, y_test)
+        model_rf.fit(X_train, y_train)
+        y_pred = model_rf.predict(X_test)
+        cm = confusion_matrix(y_test, y_pred)
+        # model_rf, cm = model_training(model_rf, X_train, y_train, X_test, y_test)
     
     # plot out confusion matrix
     cmd = ConfusionMatrixDisplay(cm)
