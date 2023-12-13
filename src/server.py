@@ -69,7 +69,7 @@ def run_model():
     parameters_dict = {}
     for key, value in parameters.items():
         try:
-            # Convert the string value to an integer
+            # Convert the string value to numerical
             parameters_dict[key] = int(value)
         except ValueError:
             parameters_dict[key] = float(value)
@@ -94,45 +94,9 @@ def run_model():
     plt.tight_layout()
     filename = f"confusion_matrix_{int(time.time())}.png"  # Unique filename using a timestamp
     plt.savefig(f"../figures/{filename}")
-    # plt.savefig('../figures/confusion_matrix_run.png')
-    # image_url = url_for('static', filename='figures/confusion_matrix_run.png')
     image_url = url_for('static', filename=f'figures/{filename}')
     plt.close()
     return json.dumps({'image_url': image_url})
-    # try:
-    #     # convert parameter type
-    #     for key, value in parameters.items():
-    #         try:
-    #             # Convert the string value to an integer
-    #             parameters[key] = int(value)
-    #         except ValueError:
-    #             # Handle the case if the value is not convertible to an integer
-    #             pass
-    #     parameters_dict = json.loads(parameters)
-
-    #     if selected_model == "XGB":
-    #         model_xgb = xgb.XGBClassifier()
-    #         model_xgb.set_params(**parameters_dict)
-    #         model_xgb, cm = model_training(model_xgb, X_train, y_train, X_test, y_test)
-    #     elif selected_model == "DT":
-    #         model_rf = RandomForestClassifier()
-    #         model_rf.set_params(**parameters_dict)
-    #         model_rf, cm = model_training(model_rf, X_train, y_train, X_test, y_test)
-        
-    #     # plot out confusion matrix
-    #     cmd = ConfusionMatrixDisplay(cm)
-    #     cmd.plot()
-    #     plt.title('Confusion Matrix (Random Forest)')
-    #     plt.tight_layout()
-    #     plt.savefig('static/confusion_matrix_run.png')
-    #     plt.close()
-    #     image_url = url_for('static', filename='confusion_matrix_run.png')
-
-    #     response = {'message': 'ML model processed successfully', 'image_url': image_url}
-    #     return json.dumps(response), 200
-    # except:
-    #     return json.dumps({'error': 'State not found'}), 404
-
 
 @app.route('/results')
 def results():

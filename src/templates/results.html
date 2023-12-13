@@ -145,7 +145,7 @@
                 inputs[input.name] = input.value;
             });
 
-            // Send input data to Flask server with proper headers
+            // Send input data to Flask
             fetch('/run-model', {
                 method: 'POST',
                 headers: {
@@ -162,8 +162,7 @@
                 if (data.image_url) {
                     // Create an image element
                     const img = document.createElement('img');
-                    img.src = data.image_url; // Set the image source to the received URL
-                    // Clear previous content and append the image to the 'plot' div
+                    img.src = data.image_url;
                     const plotDiv = document.getElementById('plot');
                     plotDiv.innerHTML = '';
                     plotDiv.appendChild(img);
