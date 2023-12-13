@@ -87,7 +87,7 @@
             <!-- Input fields will be dynamically added based on the selected model -->
         </div>
 
-        <button onclick="plotGraph()">Run</button>
+        <button onclick="runModelAndDisplay()">Run</button>
         <p>
             <a href="{{ url_for('index') }}">Back to Homepage</a>
         </p>
@@ -135,7 +135,6 @@
             container.appendChild(lineBreak);
         }
     
-        // Rest of your JavaScript functions...
         function plotGraph() {
             // Retrieve input values
             const selectedModel = document.getElementById('modelSelect').value;
@@ -148,7 +147,7 @@
 
             // Send input data to Flask server with proper headers
             fetch('/run-model', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -182,8 +181,12 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+            
         }
 
+        function runModelAndDisplay() {
+            plotGraph(); // Call the function to send data to the server and get the image URL
+        }
     </script>
 </body>
 </html>
